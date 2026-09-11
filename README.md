@@ -1,4 +1,4 @@
-# MiyuLabs — Blog Repository
+# MiyuLabs — Blog
 
 This repository works hand-in-hand with the main [MiyuLabs/www](https://github.com/MiyuLabs/www) platform. It serves as the decoupled headless content source for all public blog posts on the site.
 
