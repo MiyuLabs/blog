@@ -47,7 +47,6 @@ title: "Hello World"
 summary: "This is a brief summary of the article."
 publish_date: "2026-09-12"
 author_id: "rudra"
-cover_image: "/api/og?title=Host+It+Under+This+Repository+Too&accent=lavender"
 tags: ["engineering", "design"]
 draft: false
 ---
