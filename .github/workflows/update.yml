@@ -16,4 +16,4 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.DEPLOY_PAT }}" \
             -H "X-GitHub-Api-Version: 2026-03-10" \
             https://api.github.com/repos/MiyuLabs/www/actions/workflows/deploy.yml/dispatches \
-            -d '{"ref":"main"}'
+            -d '{"ref":"main", "inputs": {"purge_scope": "blog"}}'
