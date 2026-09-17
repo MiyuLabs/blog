@@ -173,7 +173,7 @@ One thing I'm genuinely proud of from this whole process is how much we had to o
 - Background synchronization.
 - And eventually communication with our backend.
 
-You can't add another CPU. You can't spin up another server and move the expensive part somewhere else. The hardware is sitting there, staring directly at you, saying: **"This is all you've got. Figure it out."** And honestly? I loved it. This is where the last +2 stages comes in, namely, *"UX & Design Aesthetics"* & *Optimizations & Bug Fixes*.
+You can't add another CPU. You can't spin up another server and move the expensive part somewhere else. The hardware is sitting there, staring directly at you, saying: **"This is all you've got. Figure it out."** And honestly? I loved it. This is where the last +2 stages comes in, namely, *"UX & Design Aesthetics"* and *"Optimizations & Bug Fixes"*.
 
 It forced me to actually think about what the code was doing.
 - What was allocated.
@@ -217,15 +217,15 @@ Routing a PCB is one of those things that looks pretty damn cool when you see th
 
 ![Routing (Front Side)](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/routing-plan.jpeg)
 
-While it was perfect, none of us had ever used a PCB designing software, no EasyEDA/KiCAD experience at all. I already had so much stuff to do parallely, so we decided to outsource that to a freelancer. It wasn't easy to find one that exactly understood us. But we did find a genius finally. One who knew the technical jargons associated with PCBs & perfectly understood our requirements. So we went ahead. Eventually, after a few iterations, we reached something that looked like it might actually work.
+While it was perfect, none of us had ever used a PCB designing software, no EasyEDA/KiCAD experience at all. I already had so much stuff to do parallely, so we decided to outsource that to a freelancer. It wasn't easy to find one that exactly understood us when the pool was full of *"Raju Electrician" (Sorry Raju bhai, you chill & eat cashew xD)*... But we did find a genius finally. One who knew the technical jargons associated with PCBs & perfectly understood our requirements. So we went ahead. Eventually, after a few iterations, we reached something that looked like it might actually work.
 
 In parallel, we were also looking out for *how the hell are we going to fit all of this inside the casing?* While I do have some experience with blender, as I mentioned earlier, I was pretty busy with the firmware. So we decided to outsource the casing design as well. But again, while we could outsource the CAD part, designing was all up to us. And tbh, this was wayyyy harder than the code.
 
 I'm no artist, neither is one of us. So we first had to come up with some mockups. After a few nights, when I was just about to sleep, it just arrived. The artist in me finally woke up. I grabbed a pen, a page nearby & started scribbling. And gosh, it looked so pretty *(I suck at drawing)*. There it was, we discussed and all agreed on it. And finally, we outsourced the CAD design.
 
-The casing went through its own set of revisions. Move this, rotate that, increase the width, smoothen that corner out, wait that doesn't fit *(eh- chill. this is just a blogpost, not the posthub xD).* Finally, after a few revisions, we were basically done with it.
+![Casing Idea](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/casing-idea.jpeg)
 
-![Idea Origin](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/casing-idea.jpeg)
+The casing went through its own set of revisions. Move this, rotate that, increase the width, smoothen that corner out, wait that doesn't fit *(eh- chill. this is just a blogpost, not the posthub xD).* Finally, after a few revisions, we were basically done with it.
 
 ## A Short Break That Became Long
 
@@ -395,9 +395,9 @@ And PostgreSQL sits behind the application layer, accessible internally rather t
 
 They talk to an application. The application decides what they're allowed to do. The database just does database things.
 
-Simple.
-
 ![MiyuLabs Public Web Architecture](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/public-web-architecture.png)
+
+Simple.
 
 ### The Funny Thing About "Scalable"
 
@@ -441,7 +441,7 @@ Another thing I started thinking about much more seriously was failure. Because 
 - The sun is shining.
 - Life is beautiful.
 
-Production doesn't give a shit. Devices disconnect. Servers restart. Requests timeout. Networks become garbage. Caches become stale. Users close tabs halfway through requests. MQTT clients disappear. A deployment goes wrong. A firmware update gets interrupted. Someone enters something stupid into a form *(I call such fu*ked-up brainers, **"John"**. Sorry man, if your name is John. No hard feelings.)*. Someone inevitably tries to break something.
+Production doesn't give a shit. Devices disconnect. Servers restart. Requests timeout. Networks become garbage. Caches become stale. Users close tabs halfway through requests. MQTT clients disappear. A deployment goes wrong. A firmware update gets interrupted. Someone enters something stupid into a form *(I call such fu\*ked-up brainers, **"John"**. Sorry man, if your name is John. No hard feelings.)*. Someone inevitably tries to break something.
 
 So instead of assuming everything is always available, the architecture had to account for things **not** working.
 - That's why the device can synchronize over HTTPS.
@@ -456,9 +456,9 @@ Basically: **Things that are destined not to break, will eventually break.** Des
 
 ### It Became A Proper System
 
-And somewhere during all of this, I realized something kinda funny. We started Miyu because we wanted a little desk companion. Something that would sit beside you while you worked. A tiny physical thing. And now that tiny physical thing had:
+And somewhere during all of this, I realized something kinda funny. We started building Miyu because we wanted a little desk companion. Something that would sit beside you while you worked. A tiny physical thing. And now that tiny physical thing had:
 
-- An embedded operating environment.
+- An embedded operating system.
 - A firmware architecture.
 - Device authentication.
 - A device-facing API.
@@ -527,7 +527,7 @@ So finally, after a super long time, we launched. And honestly pressing that lit
 
 Up until now, we had kept mostly everything an internal secret. Now suddenly, we were putting it in front of everyone, so that y'all can judge it. So that you could actually say, *"hey, I want one."* And the last part was probably the most surreal. We didn't really know what to expect from the response. We'd spent so much time & effort inside our own little bubble that it was genuinely hard to tell whether other people would find Miyu as interesting as we did. But then many of you started showing up, asking questions, started sharing it, and gave it so many compliments. It feels good writing about it, I mean in a sense, it feels all those efforts & sleepless nights were acknowledged in a good-way.
 
-And, with that we finally launched pre-orders. Keeping the talks of profitability & business side-of-things aside *as I'm just a simple tech guy*. Being somewhat around the same age as y'all, we know how hard it's managing personal finances while still saving to treat yourself with cool impulse buying. So, despite the amount of investment it took us and the high cost of acquiring raw materials, we tried keeping the pricing as affordable & pocket-friendly as possible. And I am really happy to say, the amount of engineering we've put into it, we're offering much more than any potential alternatives available out there, for a fraction of their price. So y'all can treat yourself and/or surprise your partner with cute little desk buddy.
+And, with that we finally launched pre-orders. Keeping the talks of profitability & business side-of-things aside *as I'm just a simple tech guy*. Being somewhat around the same age as y'all, we know how hard it's managing personal finances while still saving to treat yourself with some cool impulse buying. So, despite the amount of investment it took us and the high cost of acquiring raw materials, we tried keeping the pricing as affordable & pocket-friendly as possible. And I am really happy to say, the amount of engineering we've put into it, we're offering much more than any potential alternatives available out there, for a fraction of their price. So y'all can treat yourself and/or surprise your partner with a cute little desk buddy.
 
 For now, we have opened up the pre-orders. It's free to sign yourself up for one. We won't charge you anything now, you'll be only required to pay once we're ready to ship. We've set ourselves some initial targets, i.e, the batch of first 100 pieces, so that it eases us just a little bit in manufacturing costs. We'd really appreciate it if you find Miyu interesting enough to grab one. Or maybe even if you don't, just spread the word that the little kitty is out :)
 
@@ -558,7 +558,7 @@ And then there's time. Studies don't stop. Exams don't care that your PCB just a
 
 Doing this with a small team makes everything even more interesting. There's no dedicated hardware team. No firmware team. No backend team. No frontend team. No manufacturing department. It's just you. Which sounds cool until you realize that *"just you"* also means that when something breaks, **you** are the hardware team, firmware team, backend team, frontend team, deployment team, design team & support team simultaneously. But despite all that, I'm really glad that I had such cool teammates with me, who took care of all the non-tech-but-super-important stuff. So that *no black shadow of management-responsibility can fall upon thyself (me) xD*
 
-And honestly, I think that's the biggest thing Miyu gave us. Not just the technical experience. Not just the hardware knowledge. Not just learning how to architect a production system or ship an actual product. Trust me I ain't gonna end with ~~"maybe the real Miyu is the friends we made along the way. if it was my personal blog, i totally would 😹"~~. It taught us what happens when you take an idea seriously enough to keep working on it even after the initial excitement wears off. The idea was fun, building it was hard. Finishing it was even harder. But seeing it actually exist? **WORTH ALL THAT EFFORT.**
+And honestly, I think that's the biggest thing Miyu gave us. Not just the technical experience. Not just the hardware knowledge. Not just learning how to architect a production system or ship an actual product. Trust me I ain't gonna end with: ~~"maybe the real Miyu is the friends we made along the way. (if it was my personal blog, i totally would 😹)"~~. It taught us what happens when you take an idea seriously enough to keep working on it even after the initial excitement wears off. The idea was fun, building it was hard. Finishing it was even harder. But seeing it actually exist? **WORTH ALL THAT EFFORT.**
 
 Finally, on a closing note: I didn't know I'd be writing this post today. If I — no, we — hadn't started that day, none of this would've happened. We actually built it. And I think that's something I'm really gonna be proud of.
 
@@ -568,7 +568,7 @@ BTW, **Miyu says hieee to y'all** 👋
 
 And.. if you **[consider pre-ordering? click here](https://miyulabs.in/#preorder)**.
 
-> To thank our first customers, we're offering **₹500 OFF** and a sweet-little surprise on the first 100 pre-orders. We're also offering an additional **₹1,000 OFF** on the Partner Pack.
+> To thank our early adopters, we're offering **₹500 OFF** and a sweet-little surprise on the first 100 pre-orders. We're also offering an additional **₹1,000 OFF** on the Partner Pack.
 
 Have a great day, ahead.
 
