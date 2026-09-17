@@ -3,37 +3,580 @@ title: "Well, We Built Miyu — Your Desk OS"
 summary: "A little story about how Miyu came to be — from the first idea and questionable decisions to building, rebuilding, and finally putting it out into the world."
 publish_date: "2026-09-08"
 author_id: "rudransh"
-tags: ["behind-the-scenes", "product", "story"]
+tags: ["behind-the-scenes", "engineering", "architecture"]
 ---
 
-## WIP. Check back later.
+Hello humans, more humans, some agents, crawlers, a few scrapers... and you, yes, you, the one reading this. <br />
+This is gonna be somewhat long, so grab a drink or something. I assure you, though, it'll be pretty exciting to read.
 
-<Callout type="note">
-Miyu is named after the Japanese word for "beautiful night." That's the vibe we're going for — not productivity-maximizing, not gamified focus. Just a beautiful, calm companion for the nights you choose to build things.
-</Callout>
+This is the story of how it all came to be — how nights deprived of sleep, some lingering attachments and the desire to build something we could be proud of eventually turned into what you know today as **MiyuLabs**.
 
-## What Miyu Actually Is
+## The Origins
 
-Miyu is a small desk companion device. Think ambient night light meets lofi music player meets expressive desk pet — but without the app clutter, without the subscriptions, without the Silicon Valley wellness-washing.
+It all started about 10 months back, on a late night session of trying to remember. Trying to remember what it felt like to have someone around.
 
-It sits on your desk. It glows softly. It plays music. It has a face with animated expressions — it can look happy, annoyed, sleepy, or just idle. It reacts when you reach for it. It nudges you — gently, not intrusively — to take a break, drink water, or just breathe.
+That weird feeling of being alone late at night, sitting at your desk, working or studying for hours, with nothing but the glow of a screen around you. With everyone around you asleep and a headphone playing late night Spotify mixes. Those late-night lock-in sessions where you somehow keep going even when your brain is begging you to sleep. Maybe a little presence would've helped.
 
-It has a face. Not a screen. A *face*. Expressive enough to feel alive, simple enough to not be distracting.
+Somewhere between planning surprises and all of that, the thought came up:
 
-## Why Hardware
+> *What if there was something on the desk that could actually feel like a little companion? Something you could silently interact with. A tiny desk friend.*
 
-Software is easier. Everyone told me to build an app. But an app lives on your phone, which is also where your notifications live, and your social feeds, and everything competing for your attention. The whole point of Miyu is to give you something that *isn't* competing.
+Not another app, not another notification. Not another stupid productivity dashboard telling you that you've spent 47 minutes on Reddit. Something physical. Something that could just... be there. ~~*Something other than the monster under your bed, or the pervert-ghost watching you from your closet.*~~ The idea sounded cool enough. So I proceeded to do the most normal thing, jot it down on my todo widget and document all my brainstorming results. I slept that night, not knowing I'm gonna be writing this blog post today.
 
-Hardware is harder. The supply chain is a puzzle. Manufacturing is expensive. The unit economics are brutal for a small batch. But it's also the only way to build something that genuinely sits in a different category from everything else on your desk.
+![Idea Origin](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/idea-origin.png)
 
-## What's Next
+Over the next few days, I discussed it with others. And surprisingly, nobody said *"bro what the fuck are you talking about?"*. They liked it. We started throwing ideas around. What could it do? How would it interact with us? Could we build something like this? And slowly, the idea started taking shape.
 
-We're building Batch 1: **100 units**. This is intentional — small enough to ensure quality, big enough to learn from real people in real environments.
+At first, it was mostly about building something cool for ourselves. Something that could sit on the desk during those long study sessions and late nights. Something that could make the desk feel a little less... empty.
 
-Pre-orders are open now. If you grab one in Batch 1, you're also getting a 10% early-bird discount on your final price (up to ₹500 off).
+But then there was another thought. Could we actually turn this into something real? Not just a weekend project. Something that could eventually become a proper product. Maybe even something people would love to willingly pay for, to get their hands on. And, if we're being completely honest, escaping the eventual 9-5 hell didn't sound like a particularly bad side effect either.
 
-If you want to follow the build — the engineering decisions, the design iterations, the supply chain adventures — this blog is where it'll happen.
+But before thinking about any of that, there was a much simpler problem. None of us had built something like this before. I had spent most of my time with software. Code was familiar territory. You could write something, run it, break it, fix it, rewrite it, and repeat until it worked. This was different. Now the things we wanted to build had to physically exist. Which meant we had to learn hardware. And that's how our little idea went from *"wouldn't it be cool if..."* to us trying to figure out what the hell we had just gotten ourselves into.
 
-Welcome aboard.
+While I consider myself pretty good at figuring out *"how am I gonna build this?",* this time too, I wondered how hard could it be? It was only until we got into it.
 
-— Rudransh
+## How Not To Explode Capacitors?
+
+Are you making a bom-? Eh- noooo... But yes, capacitors are kinda cute little bombs. You never know when you end up exploding one if you are not really careful with power management. Andddd you know what? Most hardware circuits use at least one of them in some form. So, one mistake and boom. Glad we learnt it the easy way.
+
+All my life, I've been tinkering with software, exploring, reverse-engineering, writing code, that in-a-sense gave me a lot of creative freedom to build stuff that looks cool. But hardware was a whole new domain. Well not exactly-
+
+### Storytime
+
+I've always been a curious kid. I remember 4y/o me dragging a computer mouse like it's a literal rat *(oh lord! poor mouse, sorry man)*. And if that wasn't enough, I even remember trying to play *Motocross Madness Trial* requiring a 3D accelerator to run on a system that didn't have one.
+
+The same old mouse, you remember? Somehow I shattered that poor thing, ripped out its intestines (I mean PCB), broke some stuff that looked *eh, wtf is this? it's not needed.* The next instant, the same mouse's tail (I mean PS2/Cable) was pulled and connected to that broken pcb directly, anddd... finally all that apparatus was plugged into the PS2 port.
+
+To this day, I don't know how the fuc-, but when I launched the game afterwards, *BOOM? noooooo*. No sign of *3d accelerator required*, it just launched casually and let me play (precisely it was my sister who actually played it). It NEVER worked after that one trial (It's still one of my biggest regret, not being able to play the game myself, even once). God knows why it even worked & wtf happened? *Maybe the poor mouse's soul felt bad for me*. Long story short, I was pretty smart.
+
+That experience was enough to convince me, yeah, I got this. Still coming from a software background, despite having some theoretical idea about embedded systems, it was kinda new & exciting to explore the hardware domain practically. It was like a brand new world full of *what ifs*.
+
+Microcontrollers, GPIO, I/O Interfacing, Power Management, LEDs, Communication Protocols, Displays, Sensors. Huh? Suddenly it was so much to learn & test.
+
+So like any sane person would, we began researching *how things worked?*, *what stuff would we need?* and soon we had a little adventure for our pockets that made us realize *electronics ain't cheap*. But either way, the drive was real, so we ordered all parts. They arrived a few weeks later.
+
+We had the stuff in hand, now what? We began testing out our brand new breadboard (couldn't find the bread anywhere though). But yes, the next day was all about exploring how power routing works in breadboard, how to connect components, etc. Soon it was time to light up our first LED. And we did it, yay.
+
+brand new world/domain, exploration, requirements, blinking the leds, wtf is an esp, microcontrollers, i/o,
+interfacing
+
+## Reality Check
+
+Well, I have never liked making *fancy claims* that *aren't possible*. A true believer of *only claim something you can implement*, what a chad, no? (tech guys would get my frustration). Blabbering *let's add this*, *we'll include that*, *it'd be good to add this* is easy on paper, but *can it even be implemented? if yes, how?* is hard. So the next challenge was figuring out where to start. To know, what exactly are we gonna build.
+
+![Implementational Details](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/implementation-details.jpeg)
+
+It was one cold night, we all were having a bonfire (well it was just some sticks lit on fire, nothing fancy xD). We got our tab ready, started jotting down our ideas along with their exact high-level implementational details. We discussed for like 4 hours or so, and I'm glad we did. It became our starting point, now we had a clear idea & plan for *what* & *how* we're gonna build. A few days later, we designed a cute~ cat character. We decided to call it, Miyu :3
+
+Now that we had the plan & components ready, we got into implementation. It was really challenging at the start, figuring out how to interface hardware components, how various communication protocols worked *(UART? SPI? I2C? Gosh it was annoying, but once you start researching, it's pretty interesting)*. It was a loooong journey getting everything working simultaneously right.
+
+We faced all sort of challenges:
+- *Sometimes the display wouldn't show output.*
+- *Sometimes it fails to capture touch.*
+- If everything seemed to work fine, something else would fail.
+
+We changed a lot of configurations, made a lot of tradeoffs, lots of sleepless nights. But finally, even though the breadboard was a mess. The hardware circuitry was done.
+
+Now that we had tested each component individually & altogether as a whole system. We were ready to implement our firmware in code. The first step was to break down the implementation plan into ten separate phases, each internally cohesive. So that it becomes easy to implement & test one phase before moving onto another.
+
+## Wrecking The Brains
+
+So, we had a plan. We had the components. We had a breadboard that was slowly becoming a crime scene. Now came the fun part. Actually making the damn thing work.
+
+And this is where I started realizing that hardware has a very different definition of the word *"limited."*
+
+Coming from software, I'm used to having resources that are... well, kinda stupidly abundant.
+- Need more memory? Allocate some.
+- Need more storage? Add a disk.
+- Need more compute? Spin up a bigger machine.
+- Want another service? Sure, here's another container.
+
+The tiny microcontrollers does not give a shit about any of that. It has finite flash. Finite RAM. Finite CPU time. Finite GPIOs. Finite bandwidth. And then you look at everything we wanted Miyu to do and go:
+
+>*"Yeah, this should be fine."*<br />— famous last words (not me), 2026
+
+Trust me, it was not fine. We were building on an ESP-WROOM-32, and somehow our innocent little desk companion had already turned into a surprisingly complicated system. There was a display to drive, touch input to deal with, an SD card for assets, animations to render, audio to play, buttons to process, multiple apps to switch between, networking, Wi-Fi, background tasks... and eventually a whole backend sitting on the other side of the internet. And if it was less, everything still needed to be secure. TLS was the obvious choice we went for, that without saying, added extra memory footprint. All of that had to coexist on one tiny microcontroller. And that's where the actual brain damage began.
+
+### When 240MHz Doesn't Feel Like Enough
+
+One of the first things we had to understand was that *"it runs"* and *"it runs properly"* are two completely different things.
+
+The display was probably the biggest offender. We were pushing a 480×320 display over SPI. On paper, that sounds pretty straightforward. In practice, every extra thing you wanted to do with the display had consequences somewhere else. And then there was touch. We initially had to figure out how the display and touch controller were going to coexist on the same hardware without stepping on each other's toes.
+
+Eventually, we also made a conscious tradeoff around display read operations because we wanted the touch system to remain reliable. Even though we don't support touch, yet. But we've configured it in such a way that it's always possible to provide the update over OTA in future, if needed.
+
+Basically, every time we thought, *"Oh, we'll just do this."* There was another tiny hardware limitation sitting in the corner whispering: *"Respectfully, fu\*k you! How about no?"*
+
+Animations were another rabbit hole. We wanted Miyu to actually *feel* alive. Not just display a static image with a clock slapped beside it. Her little expressions, idle animations, reactions and all those tiny visual details were a huge part of what made her feel like a companion. But animations are basically a fancy way of saying, *"Please move a lot of pixels very quickly."* And the ESP32 had very different opinions about that.
+
+We ended up working with dual frame buffering and optimizing how animation frames were read and displayed. But then memory usage and SD card access started becoming their own problems. At one point, the SD card mutex decided it wanted to participate in the group project titled *"how to annoy tf outta him?"* too.
+
+Synchronization bugs are fun. Especially when everything *looks* correct.
+You press something. It works.
+You press it again. It works.
+You let an animation run for a while. And suddenly... *"why the fuck is the cat looking like a frozen dog?"*
+
+Then you spend hours staring at logs, changing timings, checking mutexes, moving things around, only to discover that two completely innocent-looking operations were the mastermind behind the war, fighting over the same resource. Classic.
+
+### Audio Decided To Join The Fight
+
+Then there was audio *(what the holy Music Player plays.)* We initially went with a PAM8403 amplifier because, well, it looked like a perfectly reasonable choice + it was super cheap *(yea honestly the primary reason was this xD)*.
+
+It was not. Or rather, *it worked*. Which was almost worse. We could get audio out of it, but there was this lovely collection of analog noise and interference that made the whole thing sound like Miyu was trying to communicate with us from another dimension. Well, at one point I thought of marketing it as a feature: *static ambient noises that typical "slowed+reverb lofi songs" on youtube have*. But nah, it was against my pride.
+
+So we debugged. And tested. And changed things. And tested again.
+
+Eventually, instead of continuing to fight the analog setup, we decided to move to a MAX98357A digital I²S amplifier. Which worked much better. It also meant another component, another delivery, another bit of money disappearing from our pockets.
+
+> *"It's only one more component." *<br />— famous last words, yk who.
+
+And this was also where the capacitor joke from earlier came back around. We learned that capacitors aren't just mysterious cylindrical things you put on a board because the circuit diagram told you to. They actually become pretty damn useful when you're dealing with noisy power-hungry peripherals.
+
+- Wi-Fi activity could introduce current spikes.
+- Displays could behave weirdly.
+- Audio could pick up jitter and noise.
+
+Adding the right decoupling and smoothing capacitors in the right places helped absorb those little current fluctuations and stabilize things. So yes.
+
+### How Not To Explode Capacitors? - II
+
+When life gives you lemons. Go sell them & earn some money, heh. So we went from *"How Not To Explode Capacitors"* to *"How To Make Them Save Your Ass Instead."*
+
+Just make sure you never connect them in reversed polarity *(ceramic capacitors are a little lenient about this though)*. And definitely do not overvolt them *(specially electrolytic ones)*. Unless, let's say, you don't mind *KA-BOOM!-ING* some cute little bombs, or maybe bricking your electronics.
+
+### Turning The Mess Into A System
+
+By this point, we had individual pieces working.
+- Display? Working.
+- Touch? Working.
+- Buttons? Working.
+- Audio? Working.
+- SD card? Working.
+- Wi-Fi? Working.
+- Animations? Working.
+
+Now we had to make all of them work at the same time. Which is where we realized that writing a giant `loop()` and praying was probably not going to be a sustainable architecture. So we broke the firmware down into separate phases. Not because ten is some magical engineering number. It just made the whole thing less terrifying. *Tbh, it was random.* We had to add +2 more later though. But for now, shut up & keep reading *(oops.. mb?)*
+
+The implementation roughly evolved through the following phases.
+
+![Miyu Development Phases](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/development-phases.png)
+
+And that was basically the point where the firmware stopped being a collection of experiments and started becoming an actual product.
+
+### The Optimization Hell
+
+One thing I'm genuinely proud of from this whole process is how much we had to optimize. Our firmware ended up being around the ~1.2 MB range while running on hardware with only a few hundred kilobytes of usable memory and a 240 MHz dual-core processor. And yet it had to handle all of this simultaneously:
+
+- Display rendering.
+- Animation playback.
+- Touch. Buttons. Audio.
+- SD card operations.
+- Wi-Fi. Networking.
+- Multiple application states.
+- Background synchronization.
+- And eventually communication with our backend.
+
+You can't add another CPU. You can't spin up another server and move the expensive part somewhere else. The hardware is sitting there, staring directly at you, saying: **"This is all you've got. Figure it out."** And honestly? I loved it. This is where the last +2 stages comes in, namely, *"UX & Design Aesthetics"* & *Optimizations & Bug Fixes*.
+
+It forced me to actually think about what the code was doing.
+- What was allocated.
+- What could be reused.
+- What needed to stay in memory.
+- What could be streamed.
+- What could be cached.
+- How often something actually needed to run.
+- Whether a particular operation was worth its cost.
+
+*Oh fuck, the heap is fragmenting internally, panik. How do I fix this?* Every time a connection opens, encrypting it with mbedTLS adds ~40KB memory overhead. If you're already low on available heap, whooosh, *BROWNOUT*. All those things that are easy to ignore when you're writing software for a machine with absurd amounts of resources suddenly become very real when your entire application has to fit inside a tiny embedded system.
+
+There were plenty of moments where we had to make compromises too. Sometimes the technically *best* solution wasn't practical given the memory, bandwidth, power, cost or development time available to us. So we picked the solution that actually worked. Because at the end of the day, we're building a product, not trying to win an optimization benchmark.
+
+Though one caveat, for now we're letting MQTT communicate over plaintext. *Reason?* I already explained above, enabling TLS for MQTT on the current hardware introduces enough memory overhead to make the tradeoff difficult.. So for now, **Do NOT communicate any secret/confidential information via the partner messaging feature. It isn't even designed for that eitherways**. If you still do not get it, then you probably need to take the *Internet Etiquettes 101* Class again. But you get my point. *We ain't a banking organization that we're entitled to take care of it xD.* Though maybe, we'll address it in future.
+
+### Somehow, It Worked
+
+Slowly, the pieces started coming together. One phase finished. Then another. Then another. We kept setting ourselves small deadlines and moving forward. There were plenty of bugs along the way. Plenty of rewrites. Plenty of *"this worked yesterday, what the fuck happened?"* moments. But eventually, the system started feeling coherent.
+
+You could power Miyu on. She would boot. She'd show her little startup sequence. You could interact with her:
+- Open an app.
+- Play music.
+- Run a Pomodoro.
+- Check your todo.
+- Watch her animations.
+- Pat her. Annoy her.
+- Connect her to another Miyu.
+
+And behind all of that, there was this tiny ESP32 quietly juggling everything we had thrown at it. By the end of March, we had made it through all ten phases. And eventually over a due course of time, we were done with the remaining two as well.
+
+The breadboard was still an absolute mess. The wires were still everywhere. There were probably several things that would've made a professional embedded engineer sigh deeply. But it worked. Miyu's brain was alive.
+
+## What The Heck?
+
+![The Breadboard Mess](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/breadboard-mess.jpeg)
+
+Eventually, the breadboard had done its job. It proved the concept. It proved that it all worked. It proved the firmware was correct. It provided the push we needed to finally say we could actually build Miyu. But nobody was going to buy a breadboard covered in wires. What we needed was a neat configuration, not a chaotic mess, **a PCB**, and that meant learning yet another thing. PCB Design. So again, we got into preparing an astrology report on PCB Design. Once we were comfortable with terminologies and a little PCB designing experience. We got into routing the traces.
+
+Routing a PCB is one of those things that looks pretty damn cool when you see the finished result. A nice green board. Neat traces bent at 45&deg; angles. Little components perfectly placed together. Everything fitting together. What you don't see is *the absolute brain damage that happens before you get there*. Routing. Power. Signal Integrity. Connectors. Physical Dimensions. Even then, we somehow did all that on paper, digitally on a tab, to be precise.
+
+![Routing (Front Side)](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/routing-plan.jpeg)
+
+While it was perfect, none of us had ever used a PCB designing software, no EasyEDA/KiCAD experience at all. I already had so much stuff to do parallely, so we decided to outsource that to a freelancer. It wasn't easy to find one that exactly understood us. But we did find a genius finally. One who knew the technical jargons associated with PCBs & perfectly understood our requirements. So we went ahead. Eventually, after a few iterations, we reached something that looked like it might actually work.
+
+In parallel, we were also looking out for *how the hell are we going to fit all of this inside the casing?* While I do have some experience with blender, as I mentioned earlier, I was pretty busy with the firmware. So we decided to outsource the casing design as well. But again, while we could outsource the CAD part, designing was all up to us. And tbh, this was wayyyy harder than the code.
+
+I'm no artist, neither is one of us. So we first had to come up with some mockups. After a few nights, when I was just about to sleep, it just arrived. The artist in me finally woke up. I grabbed a pen, a page nearby & started scribbling. And gosh, it looked so pretty *(I suck at drawing)*. There it was, we discussed and all agreed on it. And finally, we outsourced the CAD design.
+
+The casing went through its own set of revisions. Move this, rotate that, increase the width, smoothen that corner out, wait that doesn't fit *(eh- chill. this is just a blogpost, not the posthub xD).* Finally, after a few revisions, we were basically done with it.
+
+![Idea Origin](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/casing-idea.jpeg)
+
+## A Short Break That Became Long
+
+Then came a short break. Well, it was supposed to be short. But you know how life works. Sometimes you plan a little break and suddenly it's been weeks. Exams were around the corner, there was a bunch of other stuff to deal with, and Miyu had to take a little seat on the side for a while. We didn't stop thinking about it, but we definitely weren't making the progress we wanted to. And honestly, that break was probably needed.
+
+By the time we were ready to properly get back into it, the next challenge was waiting for us — **manufacturing**. Having a PCB design and casing design sitting nicely on a screen is one thing. Actually getting them manufactured is another. We started looking for vendors who could manufacture everything according to our requirements, while also keeping the costs somewhat sane. And this was where the reality of having an extremely limited budget hit pretty hard.
+
+We had to compare:
+- Vendors, quotations, minimum order quantities.
+- Manufacturing methods, shipping costs, lead times.
+
+And then look at our wallets. Yeah, maybe not that one. Budgeting became a whole part of the project by itself. We already had spent too much on acquiring the components, outsourcing the freelance stuff, R&D costs. We had to decide where we could compromise, where we absolutely couldn't, and what things we could simply postpone for later.
+
+Eventually, after quite a bit of searching, comparing and waiting, we finally found a way forward. And then... **YAYYYYY, IT ARRIVED.** After months of looking at renders, schematics, prototypes and files on a screen, we finally had the actual thing in our hands. A proper PCB, a proper casing. Something that looked significantly less like a science experiment and significantly more like an actual product. That feeling was... weird. In a good way. Something we could actually hold in hand, exactly as we had in mind.
+
+And that's when we remembered something extremely important. **We had basically forgotten about promotion.** Oops. While we were busy figuring out the hardware, software & engineering, we had completely neglected the part where we're supposed to tell people that Miyu's about to wake up. So now came another little adventure. Capturing photos, planning & shooting promotional clips, editing videos, branding and all.
+
+How do we present this thing without making it look like some random electronics project we cooked up in a basement? Suddenly, we had a whole new list of things to figure out. And somehow, after all this time, we were getting dangerously close to the part where we actually had to show Miyu to the world.
+
+## Okay, Time To Lock In
+
+So far, most of our problems were happening physically.
+
+A wire wasn't connected. A display wasn't responding. The ESP32 ran out of memory. Audio sounded like it was being transmitted from another dimension. Something didn't fit inside the casing. You know, ~~ab~~normal hardware problems. But somewhere along the way, Miyu stopped being *just a tiny device sitting on a desk*. She needed to talk to the internet.
+
+And once a device can talk to the internet, you suddenly have a completely different class of problems.
+- Authentication.
+- Device provisioning.
+- APIs. Databases.
+- Real-time communication.
+- Message delivery. Offline devices.
+- Firmware updates. Object storage.
+- Caching. Security.
+- Deployment. Monitoring.
+
+And then there was the website. And the dashboard. And the blog. And an email infrastructure — that's a whole another interesting topic, I'm planning a dedicated post for that one too, once I'm done with building the internal tool associated with it... *psss.. it's gonna be open-source, hehe &lt;3*
+
+And somehow, all of this had to work together without turning the whole thing into an architectural spaghetti monster. This was probably the point where things became *personal*. I was no longer just figuring out *"how do I make this feature work?"* It became:
+
+> *"How the fuck do I design this so that it still works when there are actual users, actual devices, actual traffic and actual things going wrong?"*
+
+And honestly? I loved it. Architecting scalable systems is something that's I'm unhingedly interested in, and now I had a fucking cat-companion to build it for. The perfect incentive.
+
+### From One Little Device To A Whole System
+
+While we had already built a functional proof-of-concept system to let Miyu communicate over the internet, scalable production infrastructure was an entirely different beast. Still, I'll narrate it like we were building it from scratch for the sake of my sanity. Now again, I definitely can't *(well, technically I indeed can, but I choose not to :p)* reveal all the internal infra-secrets :3, so don't get your hopes high. But if you're curious, here's something that'll definitely feel like a treat.
+
+And before any itchy-fingered pentester try to find loopholes and exploit our network, trust me, there's not a single day that goes by where I don't think about you, ffs. So, take a chill-pill and relax &lt;3
+
+Now coming back to the topic, the ESP32 obviously wasn't going to be directly connected to our database. That would be... let's just say, **a spectacularly bad idea.** We needed a proper device-facing backend. Something that could authenticate devices, manage their state, handle provisioning, synchronize data, deal with firmware updates and act as the controlled gateway between our little ESP32 and everything else.
+
+For that, we went with **Go**. Mostly because I wanted something lightweight, predictable and fast enough that I wouldn't have to worry about the backend itself becoming the bottleneck. And also because I genuinely enjoy writing Go. There's something strangely satisfying about having a little Go binary sitting there quietly doing its job without demanding a whole universe of dependencies.
+
+The architecture slowly started taking shape:
+- The device communicates with the backend over HTTPS for normal API operations.
+- The backend talks to PostgreSQL for persistent data.
+- Firmware binaries and other larger assets live in Cloudflare R2 rather than being shoved into the database like some sort of psychopath.
+- And for the partner system — where one Miyu needs to communicate with another Miyu in real time — we introduced MQTT.
+
+That gave us a nice separation between *request/response* communication and *real-time events*.
+
+And suddenly, our tiny desk companion had a scalable backend.
+
+![MiyuLabs System Architecture](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/device-network-architecture.png)
+
+This architecture was probably one of the first moments where I looked at the project and went: **Oh. I'm actually building a system.** The device doesn't need to know where the database is. It doesn't need to know how messages are stored. It doesn't need to know where firmware binaries physically live. It doesn't need to know anything about authentication logic beyond what it needs to authenticate itself. It just needs to know:
+
+- *"I have something to tell the backend."*
+- *"I need something from the backend."*
+
+Everything else happens behind the API. And that separation became extremely important.
+
+### Making Two Miyus Talk
+
+The partner system was probably the most interesting part of the backend. We wanted two Miyus to be able to communicate with each other in real time. So, imagine: Miyu A sends a little message. If Miyu B is online, it should receive that message almost immediately. If Miyu B isn't online?
+
+Well... we can't exactly shout into the internet and hope she hears it later. So the message needs to be stored. This is where MQTT and the backend started working together. MQTT handles the real-time communication layer. Devices subscribe to their relevant topics and publish events through the broker. The backend handles the actual application logic and persistence. So a simplified flow looks something like:
+
+**Miyu A → API → DB → MQTT → Miyu B**
+
+If B is online, she gets the message in real time. If she's offline, the backend keeps the message around and she can synchronize it later over HTTPS.
+
+This sounds pretty straightforward when written like that. It wasn't. There are a surprisingly large number of ways to screw up something as simple as *"send this message to another device."*
+
+- What if the device disconnects halfway through?
+- What if the message gets delivered but the acknowledgement never reaches the server?
+- What if the same message gets processed twice?
+- What if the device comes online after being offline for three days?
+- What if both devices are online but one has a terrible Wi-Fi connection?
+- What if the broker goes down?
+- What if the API is available but MQTT isn't?
+
+And suddenly we're discussing message persistence, acknowledgements, synchronization, QoS, presence, retries and offline delivery.
+
+For a cat. **A fucking cat.** I love software engineering.
+
+### Not Everything Needs To Be Microservices™
+
+One thing I was particularly conscious about was not overengineering this. It would've been very easy to look at all these components and start drawing some ridiculous architecture with twelve microservices, three message queues, Kubernetes, service meshes, five observability stacks and a guy whose entire job is restarting pods.
+
+No. We're a tiny team. We don't need to simulate Google. The architecture should be complicated **only where the problem itself is complicated**.
+
+So the device-facing backend stayed as a focused Go service.
+- PostgreSQL handles persistent application data.
+- Mosquitto handles MQTT.
+- Cloudflare R2 handles object storage.
+- And the rest stays relatively boring.
+
+And boring infrastructure is honestly underrated. If something doesn't need to be distributed, don't distribute it. If something doesn't need a queue, don't add a queue. If something doesn't need Kubernetes, please for the love of god don't add Kubernetes. We wanted something we could understand completely, deploy ourselves, debug ourselves and maintain without needing an entire infrastructure team. ~~*systemd ftw*~~. The goal wasn't to build the most impressive architecture diagram. The goal was to build something that actually works.
+
+### And Then There Was The Website
+
+Of course, Miyu needed a home on the internet too. And by this point, the website wasn't just going to be some static landing page. We had:
+- The main website.
+- The blog.
+- User accounts.
+- Pre-orders.
+- Device management.
+- The dashboard.
+- Backend API routes.
+- Authentication. Partner functionality.
+- Various application logic.
+
+And because apparently we hadn't suffered enough already, we wanted all of that to live together cleanly. So we ended up using **Next.js** as the main web application.
+
+One codebase. Frontend + backend. React on the frontend. Server-side route handlers where appropriate. MDX-based blog content. Authentication. Dashboard. Application logic. Everything living together as one application rather than splitting every tiny feature into its own service.
+
+And honestly, this was one of those decisions that made the whole thing much easier to reason about. The public website and dashboard don't need to know anything about the internal device infrastructure beyond the interfaces they actually need. The browser talks to the web application. The web application handles the request. The appropriate backend logic does its thing. The database stores what needs storing. The device-facing infrastructure remains its own thing. Again, separation without unnecessary complexity.
+
+> Of course, before anyone notices, the frontend fucking wasted a lot of my time. That's eventually what led to the delayed product launch. But welp, somehow it happened, heh.
+
+### Cloudflare, My Beloved
+
+Then we reached the internet-facing part. And this is where **Cloudflare, my beloved** entered the picture. Bro, it's so OG. It basically provides some pretty damn good infrastructure services for little to almost no money. And for our current use case, it's literally free. Because if you're putting a website on the public internet, you really don't want every request travelling directly to some little Linux server sitting somewhere and knocking on its door like: *"hello sir, another stranger from the internet has arrived."* So the architecture became:
+
+**Browser → Cloudflare → Origin Server**
+
+Cloudflare handles the edge. DNS. TLS. CDN. DDoS protection. WAF/security rules. Routing. And most importantly, **caching**.
+
+But there was another thing I wanted to make explicit in the architecture: **caching doesn't only happen at one place.** There are effectively multiple layers involved:
+- The browser can cache static resources.
+- Cloudflare can cache content at the edge.
+- And the origin itself can cache things through Nginx.
+
+So we ended up thinking about it as a little **3-layer cache**: **Browser Cache → Edge Cache → Origin Cache**.
+
+Obviously, not everything should be cached. Dynamic requests, authenticated requests and anything requiring fresh state need to reach the appropriate backend. But for things that *can* be cached? Why make the origin server do the same work again and again?
+
+This was one of those things where the performance mindset from the ESP32 kind of carried over into the web architecture. On the ESP32, we were constantly asking: *"Do I really need to compute this again?"* On the web: *"Do I really need the origin to generate this again?"* Apparently my brain has one optimization strategy and it applies everywhere.
+
+### The Origin Is Just A Little Linux Box
+
+Behind Cloudflare sits our origin. A Linux server. Nginx. The Next.js application. PostgreSQL. Nothing particularly magical. And that's intentional.
+
+Nginx acts as the reverse proxy and the first layer of traffic management on the server. It handles things like proxying requests to the Next.js application, security headers, rate limiting and origin-side caching. It can also act as a load balancer if we eventually run multiple application instances. So if we ever need to scale horizontally, we don't necessarily need to redesign the entire application architecture.
+
+We can have something along the lines of:
+**Cloudflare → Nginx → Next.js Instance(s)**
+
+Instead of:
+**Cloudflare → one poor Node process praying for its life.**
+
+And PostgreSQL sits behind the application layer, accessible internally rather than being exposed directly to the public internet. That distinction matters.
+- The browser doesn't get to talk to the database.
+- The device doesn't get to talk to the database.
+- Random internet people definitely don't get to talk to the database.
+
+They talk to an application. The application decides what they're allowed to do. The database just does database things.
+
+Simple.
+
+![MiyuLabs Public Web Architecture](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/public-web-architecture.png)
+
+### The Funny Thing About "Scalable"
+
+There's something I learned while building all of this. People love using the word **scalable**.
+
+*"Our architecture is scalable."*
+*"We built a highly scalable microservice infrastructure."*
+*"Our platform can scale to millions of users."*
+
+Bro. We had barely launched. There weren't millions of users waiting outside the server room. What mattered to me wasn't designing something that could magically handle ten million requests per second. It was making sure that increasing usage wouldn't require throwing the whole system away. That's a much more useful definition of scalability for us.
+
+Can I add another application instance? Can the cache absorb more traffic? Can static assets stay at the edge? Can the database remain private? Can the device backend scale independently from the website? Can MQTT handle the real-time device communication without forcing the web application to become a giant message broker? Can firmware files be served directly from object storage instead of our application server? Can we deploy a new version without manually SSH-ing into the machine at 3 AM?
+
+If the answer is *yes*, we're probably doing something right. And if tomorrow we suddenly have way more traffic than expected, we'll deal with that problem **when it becomes a real problem**.
+
+I don't want to spend six months preparing infrastructure for traffic that doesn't exist. And even if it did, the architecture is designed in such a way that we can easily scale up vertically and even horizontally.
+
+### GitHub UwU
+
+And then, of course, there was deployment. Because eventually you have to take the beautiful thing sitting on your laptop and somehow convince the production server that it should run it too. Initially, this was basically:
+
+*"ssh into server → rsync source → install stuff → build → restart → pray."*
+
+Which is fun exactly twice. After that, it's just annoying. So I built a clean CI/CD pipeline around GitHub Actions. The source code lives in GitHub. Push to `main`. GitHub Actions wakes up. Dependencies get installed. The application gets built. Tests/checks can run. The deployment happens over SSH. The new build reaches the origin server. And once deployment succeeds, the appropriate Cloudflare cache can be purged so the edge doesn't keep serving yesterday's version of the website.
+
+Which is honestly one of those things that feels disproportionately satisfying.
+You make a commit. Push. Watch the little workflow run. Green checkmark. Deployment complete. Cache purged. Website updated.
+
+**uwu.**
+
+*Okay, maybe I don't actually have this diagram in the article, but you get the idea. GitHub Actions is basically our little robot intern who never sleeps and doesn't ask for a salary. And before anyone pokes their nose around, yes, the CI/CD pipeline has proper separation between deploy and runtime permissions.*
+
+### Designing For The Little Things Going Wrong
+
+Another thing I started thinking about much more seriously was failure. Because when you're developing locally, everything works.
+- Your Wi-Fi works.
+- Your database is running.
+- Your API is running.
+- Your laptop is awake.
+- Your device is sitting right next to the router.
+- The sun is shining.
+- Life is beautiful.
+
+Production doesn't give a shit. Devices disconnect. Servers restart. Requests timeout. Networks become garbage. Caches become stale. Users close tabs halfway through requests. MQTT clients disappear. A deployment goes wrong. A firmware update gets interrupted. Someone enters something stupid into a form *(I call such fu*ked-up brainers, **"John"**. Sorry man, if your name is John. No hard feelings.)*. Someone inevitably tries to break something.
+
+So instead of assuming everything is always available, the architecture had to account for things **not** working.
+- That's why the device can synchronize over HTTPS.
+- That's why partner messages can be persisted.
+- That's why the MQTT layer isn't the only source of truth for message state.
+- That's why firmware lives in object storage.
+- That's why authentication exists at the application boundaries.
+- That's why the database isn't publicly exposed.
+- That's why caching is treated as a performance layer rather than the source of truth.
+
+Basically: **Things that are destined not to break, will eventually break.** Design accordingly.
+
+### It Became A Proper System
+
+And somewhere during all of this, I realized something kinda funny. We started Miyu because we wanted a little desk companion. Something that would sit beside you while you worked. A tiny physical thing. And now that tiny physical thing had:
+
+- An embedded operating environment.
+- A firmware architecture.
+- Device authentication.
+- A device-facing API.
+- A relational database.
+- Real-time MQTT communication.
+- Offline message synchronization.
+- Object storage.
+- OTA firmware updates.
+- A Next.js application.
+- A public website.
+- A blog.
+- A dashboard.
+- Cloudflare sitting at the edge.
+- Nginx sitting at the origin.
+- Caching layers.
+- CI/CD.
+- Deployment infrastructure.
+- And an entire collection of things that I would've never imagined we'd need.
+
+...when the original idea was basically:
+
+> *"wouldn't it be cool if there was a little cat on the desk?"*
+
+**Yeah.** It would. And apparently that one sentence was enough to create an entire distributed system.
+
+The funniest part is that none of this was really planned on day one. The architecture evolved with the product:
+- First, we needed the device to work.
+- Then we needed the device to communicate.
+- Then we needed two devices to communicate.
+- Then we needed to store things.
+- Then we needed firmware updates.
+- Then we needed a website.
+- Then we needed users.
+- Then we needed a dashboard.
+- Then we needed deployment.
+
+> Now we need moni, plis pre-order. ~~Pin of shame xD~~
+
+Every new problem forced another piece of the architecture into existence. And eventually, when I stepped back and looked at everything together... It actually made sense. Not perfect. Not infinitely scalable. Not some Silicon Valley infrastructure diagram with 47 boxes and arrows going everywhere. Just a system designed around what **Miyu actually needed**.
+
+And honestly, I'm pretty happy with that. Because this time, unlike the breadboard days, we weren't just trying to make individual components work. We were designing something where the pieces had to work **together**. The ESP32 had to communicate with the backend. The backend had to communicate with the database. The partner system had to communicate in real time. The website had to communicate with the application. Cloudflare had to sit between the public internet and our infrastructure. The origin had to serve the application reliably. GitHub had to get the latest code there.
+
+And somehow, all of these little pieces had to come together to make one very simple thing possible:
+
+**You open Miyu.** She boots. She connects. You interact with her. Somewhere far away, a server does a bunch of boring computer science.
+
+And she just... **works.**
+
+Which, after everything we've been through, is probably the most satisfying output of all.
+
+## Miyu Says Hieee :3
+
+![Miyu's Ready](https://raw.githubusercontent.com/MiyuLabs/blog/main/assets/well-we-built-miyu/miyu-ready.png)
+
+And finally... **Miyu was ready.** After months of planning, researching, breaking things, fixing things, outsourcing things, waiting for things, breaking them again, and a questionable amount of caffeine... It was time. We had:
+- The hardware.
+- The firmware.
+- The backend.
+- The web presence.
+- The branding.
+- The promotional stuff.
+
+We had pretty much everything we needed. Except... *people knowing that Miyu exists.*
+
+So finally, after a super long time, we launched. And honestly pressing that little metaphorical *"publish"* button felt weird. Tbh, it was more like final configuration checks + deployment logs + invalidating old cache. Anddd.... we were live :)
+
+Up until now, we had kept mostly everything an internal secret. Now suddenly, we were putting it in front of everyone, so that y'all can judge it. So that you could actually say, *"hey, I want one."* And the last part was probably the most surreal. We didn't really know what to expect from the response. We'd spent so much time & effort inside our own little bubble that it was genuinely hard to tell whether other people would find Miyu as interesting as we did. But then many of you started showing up, asking questions, started sharing it, and gave it so many compliments. It feels good writing about it, I mean in a sense, it feels all those efforts & sleepless nights were acknowledged in a good-way.
+
+And, with that we finally launched pre-orders. Keeping the talks of profitability & business side-of-things aside *as I'm just a simple tech guy*. Being somewhat around the same age as y'all, we know how hard it's managing personal finances while still saving to treat yourself with cool impulse buying. So, despite the amount of investment it took us and the high cost of acquiring raw materials, we tried keeping the pricing as affordable & pocket-friendly as possible. And I am really happy to say, the amount of engineering we've put into it, we're offering much more than any potential alternatives available out there, for a fraction of their price. So y'all can treat yourself and/or surprise your partner with cute little desk buddy.
+
+For now, we have opened up the pre-orders. It's free to sign yourself up for one. We won't charge you anything now, you'll be only required to pay once we're ready to ship. We've set ourselves some initial targets, i.e, the batch of first 100 pieces, so that it eases us just a little bit in manufacturing costs. We'd really appreciate it if you find Miyu interesting enough to grab one. Or maybe even if you don't, just spread the word that the little kitty is out :)
+
+Let's see when we're gonna hit up that milestone. Either way the fact that we had reached the point where *we could even ask people if they wanted one* felt like a win by itself. Because ten months earlier, Miyu was just a thought written down during a late night session. Now she's sitting on a desk waiting for people to call her home.
+
+## Some Rantings?
+
+Okay, now that we've reached the end... a few rants.
+
+Building Miyu was probably one of the most exhausting things I've worked on. And also one of the most fun. Those two things somehow managed to coexist.
+
+When you see the final product, it's really easy to look at it and think *"oh, that's pretty cool."* You don't see the countless tiny things that had to happen before that:
+- You don't see the nights spent debugging something that should've worked.
+- You don't see the hours spent reading the outdated garbage documentation for some obscure component.
+- You don't see the prototype that didn't work.
+- The PCB revision that needed changing.
+- The design that didn't fit.
+- The vendor that was rude.
+- The budget that definitely didn't cooperate.
+- The feature that sounded really cool but couldn't make the cut.
+- And you definitely don't see the amount of time spent asking: *"Why the fuck isn't this working?"*.
+
+Working on hardware also made me realize just how much I had taken software for granted. In software, you can usually just add another file. Another dependency. Another abstraction. Another server. Hardware doesn't care. You have a finite board. Finite pins. Finite power. And if two things don't physically fit together... well, good luck convincing them otherwise.
+
+The crazy amount of optimizations I had to do at such a constrained compute & memory footprint was something I'm really proud of. And honestly, I love how much hardware forces you to respect resources. We routinely waste absurd amounts of memory and compute power writing software, then complain when systems with gigabytes of RAM feel slow. Meanwhile, a roughly **~1.2 MB firmware image**, running on a minimal microcontroller with just **~320 KB of DRAM** and a **240 MHz dual-core CPU**, can handle an absurd amount of multitasking. It's just mind blowing. And the amount of respect I have for electronics engineers & low-level developers have increased dramatically in my eyes :)
+
+And then there's time. Studies don't stop. Exams don't care that your PCB just arrived. Deadlines don't care that you spent the entire night fixing a firmware bug. Life doesn't exactly pause because you have a cool project going on. There were times when the project felt like it was moving incredibly slowly. Times when we were frustrated. Times when we'd question whether we were even going to finish it. But somehow, we kept coming back to it. Maybe because we'd already invested too much. Maybe because we genuinely wanted to see it exist. Maybe because giving up would've been more annoying than continuing. Probably a combination of all three.
+
+Doing this with a small team makes everything even more interesting. There's no dedicated hardware team. No firmware team. No backend team. No frontend team. No manufacturing department. It's just you. Which sounds cool until you realize that *"just you"* also means that when something breaks, **you** are the hardware team, firmware team, backend team, frontend team, deployment team, design team & support team simultaneously. But despite all that, I'm really glad that I had such cool teammates with me, who took care of all the non-tech-but-super-important stuff. So that *no black shadow of management-responsibility can fall upon thyself (me) xD*
+
+And honestly, I think that's the biggest thing Miyu gave us. Not just the technical experience. Not just the hardware knowledge. Not just learning how to architect a production system or ship an actual product. Trust me I ain't gonna end with ~~"maybe the real Miyu is the friends we made along the way. if it was my personal blog, i totally would 😹"~~. It taught us what happens when you take an idea seriously enough to keep working on it even after the initial excitement wears off. The idea was fun, building it was hard. Finishing it was even harder. But seeing it actually exist? **WORTH ALL THAT EFFORT.**
+
+Finally, on a closing note: I didn't know I'd be writing this post today. If I — no, we — hadn't started that day, none of this would've happened. We actually built it. And I think that's something I'm really gonna be proud of.
+
+So yeah... **thank you for being here.** Whether you've been following Miyu from the beginning, just discovered her today, or somehow crawled your way here through the internet... I genuinely appreciate you reading all the way through this.
+
+BTW, **Miyu says hieee to y'all** 👋
+
+And.. if you **[consider pre-ordering? click here](https://miyulabs.in/#preorder)**.
+
+> To thank our first customers, we're offering **₹500 OFF** and a sweet-little surprise on the first 100 pre-orders. We're also offering an additional **₹1,000 OFF** on the Partner Pack.
+
+Have a great day, ahead.
+
+Now excuse me.
+
+I have a desk OS to maintain :3
+
+And a little personal ending note. *I did it, my friend. Thank You. Yayayayyayaya. 💖*
