@@ -57,9 +57,6 @@ So like any sane person would, we began researching *how things worked?*, *what 
 
 We had the stuff in hand, now what? We began testing out our brand new breadboard (couldn't find the bread anywhere though). But yes, the next day was all about exploring how power routing works in breadboard, how to connect components, etc. Soon it was time to light up our first LED. And we did it, yay.
 
-brand new world/domain, exploration, requirements, blinking the leds, wtf is an esp, microcontrollers, i/o,
-interfacing
-
 ## Reality Check
 
 Well, I have never liked making *fancy claims* that *aren't possible*. A true believer of *only claim something you can implement*, what a chad, no? (tech guys would get my frustration). Blabbering *let's add this*, *we'll include that*, *it'd be good to add this* is easy on paper, but *can it even be implemented? if yes, how?* is hard. So the next challenge was figuring out where to start. To know, what exactly are we gonna build.
@@ -93,7 +90,7 @@ Coming from software, I'm used to having resources that are... well, kinda stupi
 
 The tiny microcontrollers does not give a shit about any of that. It has finite flash. Finite RAM. Finite CPU time. Finite GPIOs. Finite bandwidth. And then you look at everything we wanted Miyu to do and go:
 
->*"Yeah, this should be fine."*<br />— famous last words (not me), 2026
+> *Yeah, this should be fine.*<br />— famous last words (not me), 2026
 
 Trust me, it was not fine. We were building on an ESP-WROOM-32, and somehow our innocent little desk companion had already turned into a surprisingly complicated system. There was a display to drive, touch input to deal with, an SD card for assets, animations to render, audio to play, buttons to process, multiple apps to switch between, networking, Wi-Fi, background tasks... and eventually a whole backend sitting on the other side of the internet. And if it was less, everything still needed to be secure. TLS was the obvious choice we went for, that without saying, added extra memory footprint. All of that had to coexist on one tiny microcontroller. And that's where the actual brain damage began.
 
@@ -128,7 +125,7 @@ So we debugged. And tested. And changed things. And tested again.
 
 Eventually, instead of continuing to fight the analog setup, we decided to move to a MAX98357A digital I²S amplifier. Which worked much better. It also meant another component, another delivery, another bit of money disappearing from our pockets.
 
-> *"It's only one more component." *<br />— famous last words, yk who.
+> *It's only one more component.*<br />— famous last words, yk who.
 
 And this was also where the capacitor joke from earlier came back around. We learned that capacitors aren't just mysterious cylindrical things you put on a board because the circuit diagram told you to. They actually become pretty damn useful when you're dealing with noisy power-hungry peripherals.
 
@@ -268,7 +265,7 @@ And then there was the website. And the dashboard. And the blog. And an email in
 
 And somehow, all of this had to work together without turning the whole thing into an architectural spaghetti monster. This was probably the point where things became *personal*. I was no longer just figuring out *"how do I make this feature work?"* It became:
 
-> *"How the fuck do I design this so that it still works when there are actual users, actual devices, actual traffic and actual things going wrong?"*
+> *How the fuck do I design this so that it still works when there are actual users, actual devices, actual traffic and actual things going wrong?*
 
 And honestly? I loved it. Architecting scalable systems is something that's I'm unhingedly interested in, and now I had a fucking cat-companion to build it for. The perfect incentive.
 
@@ -483,7 +480,7 @@ And somewhere during all of this, I realized something kinda funny. We started M
 
 ...when the original idea was basically:
 
-> *"wouldn't it be cool if there was a little cat on the desk?"*
+> *wouldn't it be cool if there was a little cat on the desk?*
 
 **Yeah.** It would. And apparently that one sentence was enough to create an entire distributed system.
 
